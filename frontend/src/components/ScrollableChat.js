@@ -60,7 +60,7 @@ const ScrollableChat = ({ messages }) => {
                                 }}
                             >
                                 {m.content}
-                                <span> &nbsp; &nbsp;&nbsp;&nbsp;</span>
+                                <span> &nbsp; &nbsp;</span>
 
                                 <span
                                     style={{
