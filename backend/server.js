@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === "production") {
 
     // Handle React routing, return all requests to React app
     app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname, "..frontend/build/index.html"));
+        res.sendFile(path.join(__dirname, "frontend/build/index.html"));
     });
 } else {
     app.get("/", (req, res) => {
@@ -52,9 +52,14 @@ const server = app.listen(
 const io = require("socket.io")(server, {
     pingTimeout: 60000,
     cors: {
-        origin: "http://localhost:3000",
-        credentials: true,
+        origin: [
+            "http://localhost:3000",
+            "https://mern-chat-app-2-0-4h2a.onrender.com/" // Your actual frontend URL
+        ],
+        methods: ["GET", "POST"],
+        credentials: true
     },
+    transports: ['websocket', 'polling'] // Add this line
 });
 
 io.on("connection", (socket) => {
