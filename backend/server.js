@@ -22,10 +22,11 @@ app.use("/api/message", messageRoutes);
 const __dirname1 = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname1, "/frontend/build")));
+    // Change this path to match your actual frontend location
+    app.use(express.static(path.join(__dirname1, "../frontend/build")));
 
     app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
+        res.sendFile(path.join(__dirname1, "../frontend/build/index.html"));
     });
 } else {
     app.get("/", (req, res) => {
@@ -48,8 +49,8 @@ const server = app.listen(
 const io = require("socket.io")(server, {
     pingTimeout: 60000,
     cors: {
-        origin: "https://mern-chat-app-2-0.onrender.com",
-        // credentials: true,
+        origin: "http://localhost:3000",
+        credentials: true,
     },
 });
 
