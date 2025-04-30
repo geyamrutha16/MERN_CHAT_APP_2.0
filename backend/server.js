@@ -6,6 +6,7 @@ const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const path = require("path");
+const fs = require('fs');
 
 dotenv.config();
 connectDB();
@@ -19,24 +20,21 @@ app.use("/api/message", messageRoutes);
 
 // --------------------------deployment------------------------------
 
-// ... (your existing middleware and routes)
-
-// --------------------------deployment------------------------------
-const __dirname1 = path.resolve();
-
+// Correct path resolution for both development and production
 if (process.env.NODE_ENV === "production") {
     // Serve static files from frontend build
-    app.use(express.static(path.join(__dirname1, "../frontend/build")));
+    app.use(express.static(path.join(__dirname, "../frontend/build")));
 
     // Handle React routing, return all requests to React app
     app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname1, "../frontend/build", "index.html"));
+        res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
     });
 } else {
     app.get("/", (req, res) => {
         res.send("API is running...");
     });
 }
+
 // --------------------------deployment------------------------------
 
 // --------------------------deployment------------------------------

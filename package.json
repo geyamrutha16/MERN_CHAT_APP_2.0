@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
-    "build": "npm install --legacy-peer-deps && npm install --legacy-peer-deps --prefix frontend && npm run build --prefix frontend",
-  "client": "npm start --prefix frontend",
-  "render-postbuild": "npm run build",
-  "dev": "concurrently \"npm run server\" \"npm run client\""
+    "client": "npm start --prefix frontend",
+    "build": "cd frontend && npm install --legacy-peer-deps && npm run build",
+    "render-postbuild": "npm run build && mv frontend/build backend/public",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "proxy": "http://127.0.0.1:5000",
   "author": "geyamrutha poluru",
