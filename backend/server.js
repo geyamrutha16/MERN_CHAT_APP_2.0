@@ -19,9 +19,6 @@ app.use("/api/message", messageRoutes);
 
 // --------------------------deployment------------------------------
 
-// At the top with other requires
-const path = require('path');
-
 // ... (your existing middleware and routes)
 
 // --------------------------deployment------------------------------
