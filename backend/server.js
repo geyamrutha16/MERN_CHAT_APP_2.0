@@ -19,20 +19,28 @@ app.use("/api/message", messageRoutes);
 
 // --------------------------deployment------------------------------
 
+// At the top with other requires
+const path = require('path');
+
+// ... (your existing middleware and routes)
+
+// --------------------------deployment------------------------------
 const __dirname1 = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
-    // Change this path to match your actual frontend location
+    // Serve static files from frontend build
     app.use(express.static(path.join(__dirname1, "../frontend/build")));
 
+    // Handle React routing, return all requests to React app
     app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname1, "../frontend/build/index.html"));
+        res.sendFile(path.join(__dirname1, "../frontend/build", "index.html"));
     });
 } else {
     app.get("/", (req, res) => {
-        res.send("API is running..");
+        res.send("API is running...");
     });
 }
+// --------------------------deployment------------------------------
 
 // --------------------------deployment------------------------------
 
